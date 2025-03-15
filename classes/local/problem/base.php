@@ -24,6 +24,31 @@ namespace tool_health\local\problem;
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class base {
+    /**
+     * This problem can be critical for security or usage of moodle.
+     *
+     * @var string SEVERITY_CRITICAL
+     */
+    const SEVERITY_CRITICAL = 'critical';
+    /**
+     * This problem can have a significant impact on moodle.
+     *
+     * @var string SEVERITY_SIGNIFICANT
+     */
+    const SEVERITY_SIGNIFICANT = 'significant';
+    /**
+     * This problem may annoy the users of moodle.
+     *
+     * @var string SEVERITY_ANNOYANCE
+     */
+    const SEVERITY_ANNOYANCE = 'annoyance';
+    /**
+     * This problem exist but may not be needed to fix.
+     *
+     * @var string SEVERITY_NOTICE
+     */
+    const SEVERITY_NOTICE = 'notice';
+
 
     /**
      * Check if the problem exists.
@@ -49,7 +74,7 @@ abstract class base {
      * @return string
      */
     public function severity(): string {
-        return SEVERITY_NOTICE;
+        return self::SEVERITY_NOTICE;
     }
 
     /**

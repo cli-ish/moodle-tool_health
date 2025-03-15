@@ -48,7 +48,7 @@ class problem_000005 extends base {
      * @return string
      */
     public function severity(): string {
-        return SEVERITY_CRITICAL;
+        return base::SEVERITY_CRITICAL;
     }
 
 

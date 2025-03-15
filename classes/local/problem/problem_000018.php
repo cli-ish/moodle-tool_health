@@ -79,7 +79,7 @@ class problem_000018 extends base {
      * @return string
      */
     public function severity(): string {
-        return SEVERITY_SIGNIFICANT;
+        return base::SEVERITY_SIGNIFICANT;
     }
 
 
