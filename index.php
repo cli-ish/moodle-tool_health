@@ -339,6 +339,7 @@ class problem_000004 extends problem_base {
      * @throws dml_exception
      */
     public function exists(): bool {
+        global $CFG;
         $lastcron = get_config('tool_task', 'lastcronstart');
         $expectedfrequency = $CFG->expectedcronfrequency ?? MINSECS;
         $delta = time() - $lastcron;

@@ -31,7 +31,7 @@ namespace tool_health;
  * @copyright  2013 Marko Vidberg
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class healthlib_test extends \advanced_testcase {
+final class healthlib_test extends \advanced_testcase {
 
     /**
      * Set up before class.
@@ -39,6 +39,7 @@ class healthlib_test extends \advanced_testcase {
      * @return void
      */
     public static function setUpBeforeClass(): void {
+        parent::setUpBeforeClass();
         global $CFG;
         require_once($CFG->dirroot . '/' . $CFG->admin . '/tool/health/locallib.php');
     }
@@ -50,77 +51,64 @@ class healthlib_test extends \advanced_testcase {
      */
     public static function provider_loop_categories(): array {
         return [
-            // One item loop including root.
-            0 => [
+            0 => [ // One item loop including root.
                 [
                     '1' => (object) ['id' => 1, 'parent' => 1],
-                ],
-                [
+                ], [
                     '1' => (object) ['id' => 1, 'parent' => 1],
                 ],
             ],
-            // One item loop not including root.
-            1 => [
+            1 => [ // One item loop not including root.
                 [
                     '1' => (object) ['id' => 1, 'parent' => 0],
                     '2' => (object) ['id' => 2, 'parent' => 2],
-                ],
-                [
+                ], [
                     '2' => (object) ['id' => 2, 'parent' => 2],
                 ],
             ],
-            // Two item loop including root.
-            2 => [
+            2 => [ // Two item loop including root.
                 [
                     '1' => (object) ['id' => 1, 'parent' => 2],
                     '2' => (object) ['id' => 2, 'parent' => 1],
-                ],
-                [
+                ], [
                     '2' => (object) ['id' => 2, 'parent' => 1],
                     '1' => (object) ['id' => 1, 'parent' => 2],
                 ],
             ],
-            // Two item loop not including root.
-            3 => [
+            3 => [ // Two item loop not including root.
                 [
                     '1' => (object) ['id' => 1, 'parent' => 0],
                     '2' => (object) ['id' => 2, 'parent' => 3],
                     '3' => (object) ['id' => 3, 'parent' => 2],
-                ],
-                [
+                ], [
                     '3' => (object) ['id' => 3, 'parent' => 2],
                     '2' => (object) ['id' => 2, 'parent' => 3],
                 ],
             ],
-            // Three item loop including root.
-            4 => [
+            4 => [ // Three item loop including root.
                 [
                     '1' => (object) ['id' => 1, 'parent' => 2],
                     '2' => (object) ['id' => 2, 'parent' => 3],
                     '3' => (object) ['id' => 3, 'parent' => 1],
-                ],
-                [
+                ], [
                     '3' => (object) ['id' => 3, 'parent' => 1],
                     '1' => (object) ['id' => 1, 'parent' => 2],
                     '2' => (object) ['id' => 2, 'parent' => 3],
                 ],
             ],
-            // Three item loop not including root.
-            5 => [
+            5 => [ // Three item loop not including root.
                 [
                     '1' => (object) ['id' => 1, 'parent' => 0],
                     '2' => (object) ['id' => 2, 'parent' => 3],
                     '3' => (object) ['id' => 3, 'parent' => 4],
                     '4' => (object) ['id' => 4, 'parent' => 2],
-                ],
-                [
+                ], [
                     '4' => (object) ['id' => 4, 'parent' => 2],
                     '2' => (object) ['id' => 2, 'parent' => 3],
                     '3' => (object) ['id' => 3, 'parent' => 4],
                 ],
             ],
-            // Multi-loop.
-            6 => [
+            6 => [ // Multi-loop.
                 [
                     '1' => (object) ['id' => 1, 'parent' => 2],
                     '2' => (object) ['id' => 2, 'parent' => 1],
@@ -130,8 +118,7 @@ class healthlib_test extends \advanced_testcase {
                     '6' => (object) ['id' => 6, 'parent' => 6],
                     '7' => (object) ['id' => 7, 'parent' => 1],
                     '8' => (object) ['id' => 8, 'parent' => 7],
-                ],
-                [
+                ], [
                     '1' => (object) ['id' => 1, 'parent' => 2],
                     '2' => (object) ['id' => 2, 'parent' => 1],
                     '8' => (object) ['id' => 8, 'parent' => 7],
@@ -142,15 +129,13 @@ class healthlib_test extends \advanced_testcase {
                     '4' => (object) ['id' => 4, 'parent' => 5],
                 ],
             ],
-            // Double-loop.
-            7 => [
+            7 => [ // Double-loop.
                 [
                     '1' => (object) ['id' => 1, 'parent' => 2],
                     '2' => (object) ['id' => 2, 'parent' => 1],
                     '3' => (object) ['id' => 3, 'parent' => 2],
                     '4' => (object) ['id' => 4, 'parent' => 2],
-                ],
-                [
+                ], [
                     '4' => (object) ['id' => 4, 'parent' => 2],
                     '3' => (object) ['id' => 3, 'parent' => 2],
                     '2' => (object) ['id' => 2, 'parent' => 1],
