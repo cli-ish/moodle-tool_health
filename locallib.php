@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Given a list of categories, this function searches for ones
  * that have a missing parent category.
@@ -31,8 +29,8 @@ defined('MOODLE_INTERNAL') || die();
  * @param array $categories List of categories.
  * @return array List of categories with missing parents.
  */
-function tool_health_category_find_missing_parents($categories) {
-    $missingparent = array();
+function tool_health_category_find_missing_parents(array $categories): array {
+    $missingparent = [];
 
     foreach ($categories as $category) {
         if ($category->parent != 0 && !array_key_exists($category->parent, $categories)) {
@@ -49,7 +47,7 @@ function tool_health_category_find_missing_parents($categories) {
  * @param array $missingparent List of categories with missing parents.
  * @return string Bullet point list of categories with missing parents.
  */
-function tool_health_category_list_missing_parents($missingparent) {
+function tool_health_category_list_missing_parents(array $missingparent): string {
     $description = '';
 
     if (!empty($missingparent)) {
@@ -70,13 +68,13 @@ function tool_health_category_list_missing_parents($missingparent) {
  * @param array $categories List of categories.
  * @return array List of categories with loops.
  */
-function tool_health_category_find_loops($categories) {
-    $loops = array();
+function tool_health_category_find_loops(array $categories): array {
+    $loops = [];
 
     while (!empty($categories)) {
 
         $current = array_pop($categories);
-        $thisloop = array($current->id => $current);
+        $thisloop = [$current->id => $current];
 
         while (true) {
             if (isset($thisloop[$current->parent])) {
@@ -111,7 +109,7 @@ function tool_health_category_find_loops($categories) {
  * @param array $loops List of categories with loops.
  * @return string Bullet point list of categories with loops.
  */
-function tool_health_category_list_loops($loops) {
+function tool_health_category_list_loops(array $loops): string {
     $description = '';
 
     if (!empty($loops)) {

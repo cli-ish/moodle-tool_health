@@ -17,8 +17,7 @@
 /**
  * Capability overview settings
  *
- * @package    tool
- * @subpackage health
+ * @package    tool_health
  * @copyright  2011 Petr Skoda
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,5 +25,10 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) {
-    $ADMIN->add('unsupported', new admin_externalpage('toolhealth', get_string('pluginname', 'tool_health'), $CFG->wwwroot.'/'.$CFG->admin.'/tool/health/index.php', 'moodle/site:config', true));
+    $ADMIN->add('server',
+        new admin_externalpage('toolhealth',
+            new lang_string('pluginname', 'tool_health'),
+            new moodle_url('/admin/tool/health/index.php'),
+            'moodle/site:config',
+            false));
 }
