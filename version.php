@@ -17,8 +17,7 @@
 /**
  * Version details.
  *
- * @package    tool
- * @subpackage health
+ * @package    tool_health
  * @copyright  2011 Petr Skoda
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->release = '1.0';
-$plugin->version   = 2022032400; // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2021051100; // Requires this Moodle version.
+$plugin->version = 2025031501; // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires = 2021051100; // Requires this Moodle version.
 $plugin->component = 'tool_health'; // Full name of the plugin (used for diagnostics).
+$plugin->maturity = MATURITY_BETA;

@@ -15,10 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_health', language 'en', branch 'MOODLE_22_STABLE'
+ * Strings for component 'tool_health', language 'en'
  *
- * @package    tool
- * @subpackage health
+ * @package    tool_health
  * @copyright  2011 Petr Skoda
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
