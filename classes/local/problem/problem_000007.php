@@ -16,6 +16,8 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
+
 /**
  * 000007 tests the file_upload php variable.
  *
@@ -28,9 +30,10 @@ class problem_000007 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'PHP: file_uploads is disabled';
+        return get_string('problem_000007_title', 'tool_health');
     }
 
     /**
@@ -56,28 +59,24 @@ class problem_000007 extends base {
      * Get problem description.
      *
      * @return string
+     * @throws coding_exception
      */
     public function description(): string {
-        return 'Your PHP configuration includes a disabled setting, file_uploads, that ' .
-            '<strong>must be enabled</strong> to let Moodle offer its full functionality. Until this setting is ' .
-            'enabled, it will not be possible to upload any files into Moodle. This includes, for example, course ' .
-            'content and user pictures.';
+        return get_string('problem_000007_description', 'tool_health');
     }
 
     /**
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      * @uses $CFG
      */
     public function solution(): string {
         global $CFG;
-        return '<p>There are two ways you can solve this problem:</p><ol><li>If you have access to your main ' .
-            '<strong>php.ini</strong> file, then find the line that looks like this: <pre>file_uploads = Off</pre> ' .
-            'and change it to <pre>file_uploads = On</pre> and then restart your web server. Be warned that this, as ' .
-            'any other PHP setting change, might affect other web applications running on the server.</li><li>' .
-            'Finally, you may be able to change this setting just for your site by creating or editing the file ' .
-            '<strong>' . $CFG->dirroot . '/.htaccess</strong> to contain this line: ' .
-            '<pre>php_value file_uploads "On"</pre></li></ol>';
+        $result = get_string('problem_000007_solution', 'tool_health');
+        $result .= '<ol><li>' . get_string('problem_000007_solution_step_one', 'tool_health') . '</li>';
+        $result .= '<li>' . get_string('problem_000007_solution_step_two', 'tool_health', $CFG->dirroot) . '</li></ol>';
+        return $result;
     }
 }

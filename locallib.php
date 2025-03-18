@@ -46,18 +46,17 @@ function tool_health_category_find_missing_parents(array $categories): array {
  *
  * @param array $missingparent List of categories with missing parents.
  * @return string Bullet point list of categories with missing parents.
+ * @throws coding_exception
  */
 function tool_health_category_list_missing_parents(array $missingparent): string {
     $description = '';
-
     if (!empty($missingparent)) {
-        $description .= '<p>The following categories are missing their parents:</p><ul>';
+        $description .= get_string('category_missing_parents', 'tool_health') . '<ul>';
         foreach ($missingparent as $cat) {
-            $description .= "<li>Category $cat->id: " . s($cat->name) . "</li>\n";
+            $description .= "<li>" . get_string('category') . " $cat->id: " . s($cat->name) . "</li>\n";
         }
         $description .= "</ul>\n";
     }
-
     return $description;
 }
 
@@ -108,15 +107,16 @@ function tool_health_category_find_loops(array $categories): array {
  *
  * @param array $loops List of categories with loops.
  * @return string Bullet point list of categories with loops.
+ * @throws coding_exception
  */
 function tool_health_category_list_loops(array $loops): string {
     $description = '';
 
     if (!empty($loops)) {
-        $description .= '<p>The following categories form a loop of parents:</p><ul>';
+        $description .= get_string('category_loop_parents', 'tool_health') . '<ul>';
         foreach ($loops as $loop) {
             $description .= "<li>\n";
-            $description .= "Category $loop->id: " . s($loop->name) . " has parent $loop->parent\n";
+            $description .= get_string('category') . " $loop->id: " . s($loop->name) . " has parent $loop->parent\n";
             $description .= "</li>\n";
         }
         $description .= "</ul>\n";

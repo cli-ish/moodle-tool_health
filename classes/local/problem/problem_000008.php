@@ -16,6 +16,8 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
+
 /**
  * 000008 tests if the memory_limit can be set.
  *
@@ -29,9 +31,10 @@ class problem_000008 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'PHP: memory_limit cannot be controlled by Moodle';
+        return get_string('problem_000008_title', 'tool_health');
     }
 
     /**
@@ -80,20 +83,19 @@ class problem_000008 extends base {
      * Get problem description.
      *
      * @return string
+     * @throws coding_exception
      */
     public function description(): string {
-        return 'The settings for PHP on your server do not allow a script to request more memory during its execution. ' .
-            'This means that there is a hard limit of ' . @ini_get('memory_limit') . ' for each script. ' .
-            'It is possible that certain operations within Moodle will require more than this amount in order ' .
-            'to complete successfully, especially if there are lots of data to be processed.';
+        return get_string('problem_000008_description', 'tool_health', @ini_get('memory_limit'));
     }
 
     /**
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      */
     public function solution(): string {
-        return 'It is recommended that you contact your web server administrator to address this issue.';
+        return get_string('problem_000008_solution', 'tool_health');
     }
 }

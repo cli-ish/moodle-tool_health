@@ -94,4 +94,14 @@ abstract class base {
     public function solution(): string {
         return '';
     }
+
+    /**
+     * Returns a list of urls which could be helpful.
+     * where the key is the title for the link.
+     *
+     * @return string[]
+     */
+    public function links(): array {
+        return [];
+    }
 }

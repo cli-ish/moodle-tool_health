@@ -16,6 +16,7 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
 use dml_exception;
 
 /**
@@ -30,9 +31,10 @@ class problem_000004 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'cron.php is not set up to run automatically';
+        return get_string('problem_000004_title', 'tool_health');
     }
 
     /**
@@ -63,22 +65,32 @@ class problem_000004 extends base {
      * Get problem description.
      *
      * @return string
+     * @throws coding_exception
      */
     public function description(): string {
-        return 'The cron.php mainenance script has not been run in the expected interval, the interval can be ' .
-            'defined over $CFG->expectedcronfrequency. This probably means that your ' .
-            'server is not configured to automatically run this script in regular time intervals. If this is the ' .
-            'case, then Moodle will mostly work as it should but some operations (notably sending email to users) ' .
-            'will not be carried out at all.';
+        return get_string('problem_000004_description', 'tool_health');
     }
 
     /**
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      */
     public function solution(): string {
-        return 'For detailed instructions on how to enable cron, see ' .
-            '<a href="https://docs.moodle.org/en/Cron" target="_blank">this section</a> of the installation manual.';
+        return get_string('problem_000004_solution', 'tool_health');
+    }
+
+    /**
+     * Returns a list of urls which could be helpful.
+     * where the key is the title for the link.
+     *
+     * @return string[]
+     * @throws coding_exception
+     */
+    public function links(): array {
+        return [
+            get_string('problem_000004_link_cron', 'tool_health') => 'https://docs.moodle.org/en/Cron',
+        ];
     }
 }

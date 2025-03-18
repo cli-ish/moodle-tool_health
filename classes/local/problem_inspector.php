@@ -129,12 +129,18 @@ class problem_inspector {
             'severity' => $problem->severity(),
             'description' => $problem->description(),
             'solution' => $problem->solution(),
+            'links' => $problem->links(),
         ];
+        $links = '';
+        foreach ($data['links'] as $key => $link) {
+            $links .= '<a href="' . $link . '" target="_blank">' . $key . '</a><br/>';
+        }
+
         echo '<dl class="healthissues ' . $data['severity'] . '">';
         echo '<dt>' . $data['title'] . '</dt>';
         echo '<dd>' . $data['description'] . '</dd>';
         echo '<dt id="solution" class="solution">' . get_string('healthsolution', 'tool_health') . '</dt>';
-        echo '<dd class="solution">' . $data['solution'] . '</dd></dl>';
+        echo '<dd class="solution">' . $data['solution'] . '<br/>' . $links . '</dd></dl>';
         echo '<form id="healthformreturn" action="index.php#' . $classname . '" method="get">';
         echo '<input type="submit" value="' . get_string('healthreturntomain', 'tool_health') . '" />';
         echo '</form>';

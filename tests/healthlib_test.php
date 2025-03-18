@@ -201,11 +201,13 @@ final class healthlib_test extends \advanced_testcase {
      *
      * @covers ::tool_health_category_list_missing_parents
      * @return void
+     * @throws \coding_exception
      */
     public function test_tool_health_category_list_missing_parents(): void {
         $missingparent = [(object) ['id' => 2, 'parent' => 3, 'name' => 'test'],
             (object) ['id' => 4, 'parent' => 5, 'name' => 'test2']];
         $result = tool_health_category_list_missing_parents($missingparent);
+        // Todo: check if this will work (language based).
         $this->assertMatchesRegularExpression('/Category 2: test/', $result);
         $this->assertMatchesRegularExpression('/Category 4: test2/', $result);
     }
@@ -215,10 +217,12 @@ final class healthlib_test extends \advanced_testcase {
      *
      * @covers ::tool_health_category_list_loops
      * @return void
+     * @throws \coding_exception
      */
     public function test_tool_health_category_list_loops(): void {
         $loops = [(object) ['id' => 2, 'parent' => 3, 'name' => 'test']];
         $result = tool_health_category_list_loops($loops);
+        // Todo: check if this will work (language based).
         $this->assertMatchesRegularExpression('/Category 2: test/', $result);
     }
 }

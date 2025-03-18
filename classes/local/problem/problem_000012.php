@@ -16,6 +16,7 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
 use dml_exception;
 
 /**
@@ -30,9 +31,10 @@ class problem_000012 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'Random questions data consistency';
+        return get_string('problem_000012_title', 'tool_health');
     }
 
     /**
@@ -60,23 +62,22 @@ class problem_000012 extends base {
      * Get problem description.
      *
      * @return string
+     * @throws coding_exception
      */
     public function description(): string {
-        return '<p>For random questions, question.parent should equal question.id. ' .
-            'There are some questions in your database for which this is not true. ' .
-            'One way that this could have happened is for random questions restored from backup before ' .
-            '<a href="https://tracker.moodle.org/browse/MDL-5482" target="_blank">MDL-5482</a> was fixed.</p>';
+        return get_string('problem_000012_description', 'tool_health');
     }
 
     /**
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      * @uses $CFG
      */
     public function solution(): string {
         global $CFG;
-        return '<p>Upgrade to Moodle 1.9.1 or later, or manually execute the SQL</p>' .
+        return get_string('problem_000012_solution', 'tool_health') .
             '<pre>UPDATE ' . $CFG->prefix . 'question SET parent = id WHERE qtype = \'random\' and parent &lt;> id;</pre>';
     }
 }

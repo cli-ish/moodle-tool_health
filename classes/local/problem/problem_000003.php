@@ -16,6 +16,8 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
+
 /**
  * 000003 tests if the dataroot exist and is writeable.
  *
@@ -28,9 +30,10 @@ class problem_000003 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return '$CFG->dataroot does not exist or does not have write permissions';
+        return get_string('problem_000003_title', 'tool_health');
     }
 
     /**
@@ -40,10 +43,7 @@ class problem_000003 extends base {
      */
     public function exists(): bool {
         global $CFG;
-        if (!is_dir($CFG->dataroot) || !is_writable($CFG->dataroot)) {
-            return true;
-        }
-        return false;
+        return !is_dir($CFG->dataroot) || !is_writable($CFG->dataroot);
     }
 
     /**
@@ -59,26 +59,22 @@ class problem_000003 extends base {
      * Get problem description.
      *
      * @return string
+     * @throws coding_exception
      */
     public function description(): string {
         global $CFG;
-        return 'Your <strong>config.php</strong> says that your "data root" directory is <strong>' . $CFG->dataroot .
-            '</strong>. However, this directory either does not exist or cannot be written to by Moodle. This means ' .
-            'that a variety of problems will be present, such as users not being able to log in and not being able ' .
-            'to upload any files. It is imperative that you address this problem for Moodle to work correctly.';
+        return get_string('problem_000003_description', 'tool_health', $CFG->dataroot);
     }
 
     /**
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      * @uses $CFG
      */
     public function solution(): string {
         global $CFG;
-        return 'First of all, make sure that the directory <strong>' . $CFG->dataroot .
-            '</strong> exists. If the directory does exist, then you must make sure that Moodle is able to write ' .
-            'to it. Contact your web server administrator and request that he gives write permissions for that ' .
-            'directory to the user that the web server process is running as.';
+        return get_string('problem_000003_solution', 'tool_health', $CFG->dataroot);
     }
 }
