@@ -16,6 +16,8 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
+
 /**
  * 000002 tests for extra characters at the end of the config.php file.
  *
@@ -28,9 +30,10 @@ class problem_000002 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'Extra characters at the end of config.php or other library function';
+        return get_string('problem_000002_title', 'tool_health');
     }
 
     /**
@@ -40,11 +43,7 @@ class problem_000002 extends base {
      */
     public function exists(): bool {
         global $extraws;
-
-        if ($extraws === '') {
-            return false;
-        }
-        return true;
+        return $extraws !== '';
     }
 
     /**
@@ -61,24 +60,21 @@ class problem_000002 extends base {
      * Get problem description.
      *
      * @return string
+     * @throws coding_exception
      */
     public function description(): string {
-        return 'Your Moodle configuration file config.php or another library file, contains some characters after ' .
-            'the closing PHP tag (?>). This causes Moodle to exhibit several kinds of problems ' .
-            '(such as broken downloaded files) and must be fixed.';
+        return get_string('problem_000002_description', 'tool_health');
     }
 
     /**
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      * @uses $CFG
      */
     public function solution(): string {
         global $CFG;
-        return 'You need to edit <strong>' . $CFG->dirroot . '/config.php</strong> and remove all characters ' .
-            '(including spaces and returns) after the ending ?> tag. These two characters should be the very ' .
-            'last in that file. The extra trailing whitespace may be also present in other PHP files that are ' .
-            'included from lib/setup.php.';
+        return get_string('problem_000002_solution', 'tool_health', $CFG->dirroot);
     }
 }

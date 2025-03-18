@@ -16,6 +16,7 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
 use dml_exception;
 
 /**
@@ -30,9 +31,10 @@ class problem_000014 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'Only multianswer and random questions should be the parent of another question';
+        return get_string('problem_000014_title', 'tool_health');
     }
 
     /**
@@ -63,20 +65,32 @@ class problem_000014 extends base {
      * Get problem description.
      *
      * @return string
+     * @throws coding_exception
      */
     public function description(): string {
-        return '<p>You have questions that violate this in your databse. ' .
-            'You will need to investigate to determine how this happened.</p>';
+        return get_string('problem_000014_description', 'tool_health');
     }
 
     /**
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      */
     public function solution(): string {
-        return '<p>It is impossible to give a solution without knowing more about ' .
-            ' how the problem was caused. You may be able to get help from the ' .
-            '<a href="http://moodle.org/mod/forum/view.php?f=121" target="_blank">Quiz forum</a>.</p>';
+        return get_string('problem_000014_solution', 'tool_health');
+    }
+
+    /**
+     * Returns a list of urls which could be helpful.
+     * where the key is the title for the link.
+     *
+     * @return string[]
+     * @throws coding_exception
+     */
+    public function links(): array {
+        return [
+            get_string('problem_000014_link_cron', 'tool_health') => 'https://moodle.org/mod/forum/view.php?f=121',
+        ];
     }
 }

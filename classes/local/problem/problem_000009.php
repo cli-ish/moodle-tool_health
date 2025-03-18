@@ -16,6 +16,8 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
+
 /**
  * 000009 tests if the sql database is conected without a password.
  *
@@ -28,9 +30,10 @@ class problem_000009 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'SQL: using account without password';
+        return get_string('problem_000009_title', 'tool_health');
     }
 
     /**
@@ -57,29 +60,30 @@ class problem_000009 extends base {
      * Get problem description.
      *
      * @return string
+     * @throws coding_exception
      */
     public function description(): string {
         global $CFG;
-        return 'The user account your are connecting to the database server with is set up without a password. ' .
-            'This is a very big security risk and is only somewhat lessened if your database is configured to not ' .
-            'accept connections from any hosts other than the server Moodle is running on. Unless you use a strong ' .
-            'password to connect to the database, you risk unauthorized access to and manipulation of your data.' .
-            ($CFG->dbuser != 'root' ? '' : (' <strong>This is especially alarming because such access to the ' .
-                'database would be as the superuser (root)!</strong>'));
+        $result = get_string('problem_000009_description', 'tool_health');
+        if ($CFG->dbuser == 'root') {
+            $result .= ' ' . get_string('problem_000009_description_root', 'tool_health');
+        }
+        return $result;
     }
 
     /**
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      * @uses $CFG
      */
     public function solution(): string {
         global $CFG;
-        return 'You should change the password of the user <strong>' . $CFG->dbuser . '</strong> both in your ' .
-            'database and in your Moodle <strong>config.php</strong> immediately!' .
-            ($CFG->dbuser != 'root' ? '' : (' It would also be a good idea to change the user account from root' .
-                ' to something else, because this would lessen the impact in the event that your ' .
-                'database is compromised anyway.'));
+        $result = get_string('problem_000009_solution', 'tool_health', $CFG->dbuser);
+        if ($CFG->dbuser == 'root') {
+            $result .= ' <strong>' . get_string('problem_000009_solution_root', 'tool_health') . '</strong>';
+        }
+        return $result;
     }
 }

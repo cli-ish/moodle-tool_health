@@ -16,6 +16,7 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
 use dml_exception;
 
 /**
@@ -30,9 +31,10 @@ class problem_000016 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'Question categories should belong to the same context as their parent';
+        return get_string('problem_000016_title', 'tool_health');
     }
 
     /**
@@ -65,6 +67,7 @@ class problem_000016 extends base {
      *
      * @return string
      * @throws dml_exception
+     * @throws coding_exception
      */
     public function description(): string {
         global $DB;
@@ -75,9 +78,18 @@ class problem_000016 extends base {
             FROM {question_categories} child_qc
                 JOIN {question_categories} parent_qc ON child_qc.parent = parent_qc.id
             WHERE child_qc.contextid <> parent_qc.contextid");
-        $table = '<table><thead><tr><th colspan="3">Child category</th><th colspan="3">Parent category</th></tr><tr>' .
-            '<th>Id</th><th>Name</th><th>Context id</th>' .
-            '<th>Id</th><th>Name</th><th>Context id</th>' .
+
+        $table = '<table><thead><tr><th colspan="3">' . get_string('problem_000016_description_child', 'tool_health') .
+            '</th><th colspan="3">' . get_string('problem_000016_description_parent', 'tool_health') .
+            '</th></tr><tr>' .
+            '<th>' . get_string('problem_000016_description_id', 'tool_health') .
+            '</th><th>' . get_string('problem_000016_description_name', 'tool_health') .
+            '</th><th>' . get_string('problem_000016_description_context', 'tool_health') .
+            '</th>' .
+            '<th>' . get_string('problem_000016_description_id', 'tool_health') .
+            '</th><th>' . get_string('problem_000016_description_name', 'tool_health') .
+            '</th><th>' . get_string('problem_000016_description_context', 'tool_health') .
+            '</th>' .
             "</tr></thead><tbody>\n";
         foreach ($problemcategories as $cat) {
             $table .= "<tr><td>$cat->childid</td><td>" . s($cat->childname) .
@@ -85,8 +97,7 @@ class problem_000016 extends base {
                 "</td><td>$cat->parentcon</td></tr>\n";
         }
         $table .= '</tbody></table>';
-        return '<p>When one question category is the parent of another, then they ' .
-            'should both belong to the same context. This is not true for the following categories:</p>' .
+        return get_string('problem_000016_description', 'tool_health') .
             $table;
     }
 
@@ -94,10 +105,22 @@ class problem_000016 extends base {
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      */
     public function solution(): string {
-        return '<p>An automated solution is difficult. It depends whether the ' .
-            'parent or child category is in the wrong pace. People in the ' .
-            '<a href="https://moodle.org/mod/forum/view.php?f=121" target="_blank">Quiz forum</a> may be able to help.</p>';
+        return get_string('problem_000016_solution', 'tool_health');
+    }
+
+    /**
+     * Returns a list of urls which could be helpful.
+     * where the key is the title for the link.
+     *
+     * @return string[]
+     * @throws coding_exception
+     */
+    public function links(): array {
+        return [
+            get_string('problem_000016_link_cron', 'tool_health') => 'https://moodle.org/mod/forum/view.php?f=121',
+        ];
     }
 }

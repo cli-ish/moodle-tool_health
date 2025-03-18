@@ -16,6 +16,8 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
+
 /**
  * 000005 tests if the session.auto_start is enabled
  *
@@ -28,9 +30,10 @@ class problem_000005 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'PHP: session.auto_start is enabled';
+        return get_string('problem_000005_title', 'tool_health');
     }
 
     /**
@@ -56,27 +59,24 @@ class problem_000005 extends base {
      * Get problem description.
      *
      * @return string
+     * @throws coding_exception
      */
     public function description(): string {
-        return 'Your PHP configuration includes an enabled setting, session.auto_start, that ' .
-            '<strong>must be disabled</strong> in order for Moodle to work correctly. Notable symptoms arising from ' .
-            'this misconfiguration include fatal errors and/or blank pages when trying to log in.';
+        return get_string('problem_000005_description', 'tool_health');
     }
 
     /**
      * Generate solution text.
      *
      * @return string
+     * @throws coding_exception
      * @uses $CFG
      */
     public function solution(): string {
         global $CFG;
-        return '<p>There are two ways you can solve this problem:</p><ol><li>If you have access to your main ' .
-            '<strong>php.ini</strong> file, then find the line that looks like this: ' .
-            '<pre>session.auto_start = 1</pre> and change it to <pre>session.auto_start = 0</pre> and then restart ' .
-            'your web server. Be warned that this, as any other PHP setting change, might affect other web ' .
-            'applications running on the server.</li><li>Finally, you may be able to change this setting just ' .
-            'for your site by creating or editing the file <strong>' . $CFG->dirroot . '/.htaccess</strong> to ' .
-            'contain this line: <pre>php_value session.auto_start "0"</pre></li></ol>';
+        $result = get_string('problem_000005_solution', 'tool_health');
+        $result .= '<ol><li>' . get_string('problem_000005_solution_step_one', 'tool_health') . '</li>';
+        $result .= '<li>' . get_string('problem_000005_solution_step_two', 'tool_health', $CFG->dirroot) . '</li></ol>';
+        return $result;
     }
 }

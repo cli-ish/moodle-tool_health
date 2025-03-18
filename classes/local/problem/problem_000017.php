@@ -16,6 +16,7 @@
 
 namespace tool_health\local\problem;
 
+use coding_exception;
 use dml_exception;
 
 /**
@@ -31,9 +32,10 @@ class problem_000017 extends base {
      * Generate title for this problem.
      *
      * @return string
+     * @throws coding_exception
      */
     public function title(): string {
-        return 'Question categories tree structure';
+        return get_string('problem_000017_title', 'tool_health');
     }
 
     /**
@@ -87,13 +89,12 @@ class problem_000017 extends base {
      *
      * @return string
      * @throws dml_exception
+     * @throws coding_exception
      */
     public function description(): string {
         [$missingparent, $loops] = $this->find_problems();
 
-        $description = '<p>The question categories should be arranged into tree ' .
-            ' structures by the question_categories.parent field. Sometimes ' .
-            ' this tree structure gets messed up.</p>';
+        $description = get_string('problem_000017_description', 'tool_health');
 
         $description .= tool_health_category_list_missing_parents($missingparent);
         $description .= tool_health_category_list_loops($loops);
@@ -106,14 +107,14 @@ class problem_000017 extends base {
      *
      * @return string
      * @throws dml_exception
+     * @throws coding_exception
      * @uses $CFG
      */
     public function solution(): string {
         global $CFG;
         [$missingparent, $loops] = $this->find_problems();
 
-        $solution = '<p>Consider executing the following SQL queries. These fix ' .
-            'the problem by moving some categories to the top level.</p>';
+        $solution = get_string('problem_000017_solution', 'tool_health');
 
         if (!empty($missingparent)) {
             $solution .= "<pre>UPDATE " . $CFG->prefix . "question_categories\n" .
